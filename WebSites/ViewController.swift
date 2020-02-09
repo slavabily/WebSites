@@ -77,6 +77,13 @@ class ViewController: UIViewController, WKNavigationDelegate {
                     return
                 }
             }
+            let ac = UIAlertController(title: "Blocked", message: "This URL is not allowed", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true)
+            
+            decisionHandler(.cancel)
+            
+            return
         }
         decisionHandler(.cancel)
     }
