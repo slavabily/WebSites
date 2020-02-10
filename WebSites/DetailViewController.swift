@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DetailViewController.swift
 //  WebSites
 //
 //  Created by slava bily on 9/2/20.
@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate {
+class DetailViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
 
@@ -36,8 +36,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-
-        toolbarItems = [progressButton, spacer, refresh]
+        
+        let back = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
+        let foward = UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
+        
+        toolbarItems = [progressButton, spacer, back, foward, refresh]
         navigationController?.isToolbarHidden = false
 
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
@@ -68,8 +71,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let url = navigationAction.request.url
 
         if let host = url?.host {
-            
-            print(host)
             
             for website in websites {
                 if host.contains(website) {
