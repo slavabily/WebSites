@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class DetailViewController: UIViewController, WKNavigationDelegate {
+class DetailViewController: UIViewController, WKNavigationDelegate, Storyboarded {
     var webView: WKWebView!
     var progressView: UIProgressView!
     var website = String()

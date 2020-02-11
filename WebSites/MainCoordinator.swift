@@ -18,7 +18,19 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
+        let vc = ViewController.instantiate()
         
+        vc.showWebsite = show(website:)
+        
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func show(website: String) {
+        let dvc = DetailViewController.instantiate()
+        
+        dvc.website = website
+        
+        navigationController.pushViewController(dvc, animated: true)
     }
 
 }
