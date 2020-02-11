@@ -27,10 +27,9 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
 
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
-
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
+ 
         let progressButton = UIBarButtonItem(customView: progressView)
 
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -44,9 +43,14 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
 
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        progressView.isHidden = false
+    }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
+        progressView.isHidden = true
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
